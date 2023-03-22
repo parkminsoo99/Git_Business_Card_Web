@@ -1,6 +1,6 @@
 # Git_Business_Card_Web
 The GBC project offers for developer who want to show about oneself git profile in detail and briefly.
-To do list
+# To do list
 - [ ] 유저 이름 검색 화면_feature_01
 - [ ] 유저 이름을 기반으로 API 기본 정보 불러오기_feature_02
 - [ ] API 정보 기반으로 페이지2에 정보 출력하기_feature_02
