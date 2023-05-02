@@ -1,7 +1,17 @@
 import Image from 'next/image'
 
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function LoginBody() {
+    const router = useRouter();
+    const { status } = useSession();
+  
+    if (status === "authenticated") {
+      router.replace("/");
+      return null;
+    }
+    
     return (
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
@@ -17,9 +27,10 @@ export default function LoginBody() {
             alt="github_image" 
             width={200} height={200}
             ></Image>
-            </center>    
-                <button class="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-black rounded text-lg" >Github Login</button>
-           <p class="text-xs text-gray-500 mt-3">Github OAuth2.0 using next-auth</p>
+            </center> 
+            /*깃허브 로그인 버튼*/  주석어케다는겨?...
+            <button onClick={() => signIn("github")} class="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-black rounded text-lg" >Github Login</button>
+            <p class="text-xs text-gray-500 mt-3">Github OAuth2.0 using next-auth</p>
             </div>
         </div>
     </section>
