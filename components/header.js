@@ -11,7 +11,7 @@ export default function Header() {
                     <span className="ml-3 text-xl">My IT</span>
                 </a>
                 <nav
-                    className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+                    className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400   flex flex-wrap items-center text-base justify-center">
                     <Link href="/">
                         <p className="mr-5 hover:text-gray-900">Home</p>
                     </Link>
@@ -22,6 +22,9 @@ export default function Header() {
                         <p className="mr-5 hover:text-gray-900">My Card</p>
                     </Link>
                 </nav>
+                <Link href="/login">
+                    <p className="mr-5 hover:text-gray-900">Login</p>
+                </Link>
                 <button>
                     <Image src="/github_logo.png" alt="github_image" width={30} height={30}></Image>
                 </button>
