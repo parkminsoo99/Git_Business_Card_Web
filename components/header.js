@@ -22,7 +22,8 @@ export default function Header() {
                         <p className="mr-5 hover:text-gray-900">My Card</p>
                     </Link>
                 </nav>
-                <Link href="/login">
+                
+                <Link href="/auth/signin">
                     <p className="mr-5 hover:text-gray-900">Login</p>
                 </Link>
                 <button>
