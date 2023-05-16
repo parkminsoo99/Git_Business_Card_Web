@@ -1,7 +1,4 @@
 export default function Card() {
-  const card = document.querySelector(".card");
-  card.addEventListener("click", onClick);
-
   function onClick(event) {
     const element = event.currentTarget;
     if (element.style.transform == "rotateY(180deg)") {
