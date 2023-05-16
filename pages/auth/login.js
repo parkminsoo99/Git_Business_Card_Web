@@ -4,13 +4,14 @@ import Footer from '/components/footer'
 
 import { useRouter } from 'next/router';
 
-
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function LogIn() {
   const {data: session, status} = useSession();
 
   if (status === 'authenticated') {
+    console.log(session.user.name);
+
     const router = useRouter();
     router.push('http://localhost:3000/'); //로그인 후 main page 자동 이동
     
@@ -19,7 +20,7 @@ export default function LogIn() {
     return (
         <>
         <Header/>
-    <section class="text-gray-600 body-font">
+        <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
             <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
             <h1 class="title-font font-medium text-3xl text-gray-900">My IT</h1>
