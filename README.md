@@ -57,6 +57,8 @@ user API -> user가 following 하고있는 API
 
 - [username].js
 
+ feature_03 component - card.js 코드 아예 복사해서 넣었습니다 -> {user.id}같은 정보로 다 변경함
  user별 페이지를 동적으로 만들기 위한 코드
  -> OAuth 인증된 유저이름으로 접근해야 하는데 주소창에 아무이름 쳐도 나옴 -> 안드에 쓰세염
 #### 처음 접근시에는 로그인한 유저 카드로 접근
+## organization 사진, repo 부분 수정 필요!!!!!!! 아무나해주세요
