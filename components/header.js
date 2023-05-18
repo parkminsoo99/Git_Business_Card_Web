@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -29,7 +28,7 @@ export default function Header() {
                 </nav>
                 <button onClick={() => signOut()}><p className="mr-5 hover:text-gray-900">Hello {session?.user?.name}!   Logout</p></button>
                 <button>
-                    <Image src="/github_logo.png" alt="github_image" width={30} height={30}></Image>
+                    <img src="/github_logo.png" alt="github_image" width={30} height={30} />
                 </button>
             </div>
         </header>
@@ -49,19 +48,12 @@ export default function Header() {
                     <Link href="/">
                         <p className="mr-5 hover:text-gray-900">Home</p>
                     </Link>
-                    <Link href="/following_card">
-                        <p className="mr-5 hover:text-gray-900">Following Card</p>
-                    </Link>
-                    <Link href="/mycard">
-                        <p className="mr-5 hover:text-gray-900">My Card</p>
-                    </Link>
-                </nav>
-                
+                </nav>        
                 <Link href="/auth/login">
                     <p className="mr-5 hover:text-gray-900">Login</p>
                 </Link>
                 <button>
-                    <Image src="/github_logo.png" alt="github_image" width={30} height={30}></Image>
+                    <img src="/github_logo.png" alt="github_image" width={30} height={30} />
                 </button>
             </div>
         </header>

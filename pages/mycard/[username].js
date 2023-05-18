@@ -3,9 +3,6 @@ import { useSession } from 'next-auth/react';
 import fetch from 'isomorphic-unfetch';
 import UserFollowers from './userfollowers';
 //<UserFollowers username={user.login} /> 이걸로 follow id 받아올 수 있음
-
-import Image from 'next/image';
-
 const UserPage = ({ user }) => {
   const router = useRouter();
   // const {session, status} = useSession();
