@@ -24,6 +24,19 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
+<<<<<<< HEAD
+=======
+    ],
+    "/mycard/[username]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/mycard/[username].js"
+    ],
+    "/mycard/userfollowers": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/mycard/userfollowers.js"
+>>>>>>> feature_01
     ]
   },
   "ampFirstPages": []
