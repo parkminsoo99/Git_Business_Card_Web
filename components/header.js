@@ -27,7 +27,7 @@ export default function Header() {
                         <p className="mr-5 hover:text-gray-900">My Card</p>
                     </Link>
                 </nav>
-                <button onClick={() => signOut()}><p className="mr-5 hover:text-gray-900">Hello {session?.user?.name}!   Logout</p></button>
+                <button onClick={() => signOut()}><p className="mr-5 hover:text-gray-900">Hello {session.accessToken}!   Logout</p></button>
                 <button>
                     <Image src="/github_logo.png" alt="github_image" width={30} height={30}></Image>
                 </button>

@@ -13,20 +13,24 @@ GithubProvider({
 
     })],
 
-  // callbacks: {
-  //   async jwt({ token, account }) {
-  //     // Persist the OAuth access_token to the token right after signin
-  //     if (account) {
-  //       token.accessToken = account.access_token
-  //     }
-  //     return token
-  //   },
-  //   async session({ session, token, user }) {
-  //     // Send properties to the client, like an access_token from a provider.
-  //     session.accessToken = token.accessToken
-  //     return session
-  //   }
-  // },
+  callbacks: {
+    async jwt({ token, account,profile }) {
+      // Persist the OAuth access_token to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token
+        token.id=profile.id
+        token.login = profile.login
+      }
+      return token
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token from a provider.
+      session.accessToken = token.accessToken
+      session.user.id = token.id
+      session.user.login = token.login
+      return session
+    }
+  },
 
   // pages: {
   //   //signIn: '/auth/login',

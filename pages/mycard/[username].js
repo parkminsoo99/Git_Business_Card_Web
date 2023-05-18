@@ -6,17 +6,35 @@ import UserFollowers from './userfollowers';
 
 import Image from 'next/image';
 
+const fetchGitHubUser = async (accessToken) => { //access token 기반으로 username불러오기
+  try {
+    const response = await fetch('https://api.github.com/user', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const username = data.login;
+      return username;
+    } else {
+      throw new Error('Failed to fetch GitHub user data');
+    }
+  } catch (error) {
+    console.error('Failed to fetch GitHub user data:', error);
+    // 오류 처리 로직
+  }
+};
+
 const UserPage = ({ user }) => {
   const router = useRouter();
-  // const {session, status} = useSession();
 
-  // console.log({status});
-  // console.log(session.user.login);
-
+  //console.log('GitHub Username:', user.login);
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
-  
+
   function onClick(event) {
     const element = event.currentTarget;
     if (element.style.transform == "rotateY(180deg)") {

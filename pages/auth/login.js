@@ -11,13 +11,15 @@ export default function LogIn() {
 
   if (status === 'authenticated') {
     console.log(session.user.name);
+    console.log(session.user.login);
 
     const router = useRouter();
-    router.push('http://localhost:3000/'); //로그인 후 main page 자동 이동
+    router.push('../..'); //로그인 후 main page 자동 이동
     
   }
 
     return (
+      
         <>
         <Header/>
         <section class="text-gray-600 body-font">
