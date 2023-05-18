@@ -4,10 +4,44 @@ import React, {useState} from 'react'
 import Link from 'next/link'
 import Modal from '/components/Modal'
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useEffect } from 'react';
 
-export default function MyCard() {
+const fetchGitHubUser = async (accessToken) => {
+    try {
+      const response = await fetch('https://api.github.com/user', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        return data.login;
+      } else {
+        throw new Error('Failed to fetch GitHub user data');
+      }
+    } catch (error) {
+      console.error('Failed to fetch GitHub user data:', error);
+      // Handle error
+    }
+  };
+  
+  export default function MyCard() {
     const [showModal, setShowModal] = useState(false);
-    const {data: session, status} = useSession();
+    const { data: session, status } = useSession();
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const getUser = async () => {
+          if (session?.accessToken) {
+            const user = await fetchGitHubUser(session.accessToken);
+            setUser(user);
+            console.log(user);
+          }
+        };
+    
+        getUser();
+      }, [session]);
 
   if (status === 'authenticated') { //로그인 된 경우 Login 버튼 없애기
     return (
@@ -21,6 +55,8 @@ export default function MyCard() {
                     width='600'
                     height='600'
                     alt="user-image"/>
+                    <div>name: {session.user.name}</div>
+                    <div>id: {user}</div>
                 <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
                     <div className="flex w-full justify-center items-end">
                         <div className="relative mr-4 lg:w-full xl:w-1/2 w-2/4 md:w-full text-left">

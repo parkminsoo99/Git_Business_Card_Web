@@ -4,11 +4,13 @@ const nextConfig = {
   assetPrefix: '.',
   images: {
     domains: ["localhost", "*"],
+
   },
   images: {
     loader: 'akamai',
     path: '/',
-}
+  },
+  basePath:''
   
 }
 module.exports = nextConfig
