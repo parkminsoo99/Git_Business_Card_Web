@@ -12,7 +12,7 @@ export default function Header() {
                 </a>
                 <nav
                     className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-                    <Link href="/">
+                    <Link href={"/"}>
                         <p className="mr-5 hover:text-gray-900">Home</p>
                     </Link>
                     <Link href="/following_card">
@@ -23,7 +23,7 @@ export default function Header() {
                     </Link>
                 </nav>
                 <button>
-                    <Image src="/github_logo.png" alt="github_image" width={30} height={30}></Image>
+                    <img src="/github_logo.png" alt="github_image" width={30} height={30} />
                 </button>
             </div>
         </header>

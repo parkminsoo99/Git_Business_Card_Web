@@ -15,22 +15,22 @@ export default function Feature() {
                 <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
                     <Card_Animation />
                     <div className="flex-grow">
-                        <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Business_Card</h2>
-                        <p className="leading-relaxed text-base">한 눈에 들어오는 정보와 디자인</p>
+                        <h2 className="text-gray-900 text-lg title-font font-medium mb-3">My Github Card</h2>
+                        <p className="leading-relaxed text-base">Github를 통해 만드는 나만의 명함</p>
                     </div>
                 </div>
                 <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
                     <Share_Link_Animation />
                     <div className="flex-grow">
-                        <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Share</h2>
-                        <p className="leading-relaxed text-base">GitHub 명함을 쉽고 빠르게 공유</p>
+                        <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Easy Shareing</h2>
+                        <p className="leading-relaxed text-base">QR, 링크를 활용한 편리한 명함공유</p>
                     </div>
                 </div>
                 <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
                     <Following_Animation />
                     <div className="flex-grow">
-                        <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Following Card</h2>
-                        <p className="leading-relaxed text-base">GitHub에서 자신이 팔로잉 한 사람들의 명함</p>
+                        <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Connection</h2>
+                        <p className="leading-relaxed text-base">공유 명함을 사용한 개발자 네트워크 형성</p>
                     </div>
                 </div>
             </div>
@@ -39,3 +39,8 @@ export default function Feature() {
         </section>
     )
 }
+
+
+
+
+
