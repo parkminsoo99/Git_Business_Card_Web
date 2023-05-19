@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 export default function Header() {
   const {data: session, status} = useSession();
-
+  const router = useRouter();
   if (status === 'authenticated') { //로그인 된 경우 Login 버튼 없애기
     return (
         <header className="text-gray-600 body-font">
@@ -26,7 +27,7 @@ export default function Header() {
                         <p className="mr-5 hover:text-gray-900">My Card</p>
                     </Link>
                 </nav>
-                <button onClick={() => signOut()}><p className="mr-5 hover:text-gray-900">Hello {session?.user?.name}!   Logout</p></button>
+                <button onClick={() => signOut(router.push('/'))} ><p className="mr-5 hover:text-gray-900">Hello {session?.user?.name}!   Logout</p></button>
                 <button>
                     <img src="/github_logo.png" alt="github_image" width={30} height={30} />
                 </button>
