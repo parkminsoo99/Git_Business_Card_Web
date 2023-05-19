@@ -1,13 +1,12 @@
 import Header from '/components/header'
 import Footer from '/components/footer'
 import React, {useState} from 'react'
-import Link from 'next/link'
 import Modal from '/components/Modal'
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function MyCard() {
     const [showModal, setShowModal] = useState(false);
-    const {data: session, status} = useSession();
+    const {data: session, status, data} = useSession();
 
   if (status === 'authenticated') { //로그인 된 경우 Login 버튼 없애기
     return (
@@ -48,7 +47,7 @@ export default function MyCard() {
                                                         type="text"
                                                         id="hero-field"
                                                         name="hero-field"
-                                                        placeholder='https://git-business-card.web.app/mycard/{username}'
+                                                        placeholder='https://git-business-card.web.app/mycard/{user.login}'
                                                         className="w-full bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                                                 </div>
 
@@ -69,6 +68,6 @@ export default function MyCard() {
         <Footer/>
         
     </>
-    )
+    ) 
   }
 }
