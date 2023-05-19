@@ -1,40 +1,55 @@
 import Header from "/components/header";
 import Footer from "/components/footer";
-import Image from "next/image";
+import Card from "@/components/card";
 
 export default function Following_Card() {
   return (
     <>
-      {" "}
-      <Header />{" "}
-      <section className="text-gray-600 body-font">
-        <div className="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
-          <Image
-            classNameName="rounded-lg shadow-lg "
-            src="/card_front.png"
-            width="600"
-            height="600"
-            alt="user-image"
-          ></Image>
-          <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center"></div>
-          <Image
-            classNameName="rounded-lg shadow-lg "
-            src="/card_2.png"
-            width="600"
-            height="600"
-            alt="user-image"
-          ></Image>
-          <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center"></div>
-          <Image
-            classNameName="rounded-lg shadow-lg "
-            src="/card_3.png"
-            width="600"
-            height="600"
-            alt="user-image"
-          ></Image>
-        </div>
-      </section>
+      <Header />
+      <div className="content">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
       <Footer />
+      <style jsx>{`
+        @import "tailwindcss/base";
+        @import "tailwindcss/components";
+        @import "tailwindcss/utilities";
+
+        .content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          flex-grow: 1;
+        }
+
+        .content :global(.card) {
+          @apply w-1/3; /* 카드의 너비와 여백 설정 */
+          margin: 40px;
+        }
+
+        @media (max-width: 768px) {
+          /* 너비가 768px 이하일 때 */
+          .content :global(.card) {
+            @apply w-1/2; /* 한 줄에 2개의 카드가 나오도록 설정 */
+          }
+        }
+
+        @media (max-width: 480px) {
+          /* 너비가 480px 이하일 때 */
+          .content :global(.card) {
+            @apply w-full; /* 한 줄에 1개의 카드가 나오도록 설정 */
+          }
+        }
+      `}</style>
     </>
   );
 }
