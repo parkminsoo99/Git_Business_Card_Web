@@ -4,19 +4,25 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^13.2.4",
-    "next-images": "^1.8.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-lottie-player": "^1.5.4"
+    "dotenv": "^16.0.3",
+    "isomorphic-unfetch": "^4.0.2",
+    "global": "^4.4.0",
+    "next": "^13.4.2",
+    "next-auth": "^4.22.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-lottie-player": "^1.5.4",
+    "styled-components": "^5.3.10"
   },
   "devDependencies": {
+    "@types/react": "^18.0.33",
     "autoprefixer": "^10.4.14",
+    "firebase-tools": "^12.0.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.0"
   }
