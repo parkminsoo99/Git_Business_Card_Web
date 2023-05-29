@@ -2,8 +2,7 @@
   "/_error": "pages/_error.js",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
   "/following_card": "pages/following_card.js",
-  "/mycard": "pages/mycard.js",
-  "/": "pages/index.js"
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/mycard": "pages/mycard.js"
 }

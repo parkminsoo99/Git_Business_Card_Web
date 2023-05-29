@@ -69,78 +69,98 @@ export default function Following_Card({
       <Header />
       <div className="content">
         {/* 동적으로 카드를 생성하는 부분 */}
-        {followingList.map((followingUser) => (
-          <div
-            key={followingUser.id}
-            onClick={onClick}
-            className="card rounded-md w-96 h-60 bg-black"
-          >
-            {/* 카드 내용 */}
-            <div className="front">
-              {/* 사용자 정보 */}
-              <div className="profile">
-                <img
-                  className="profileimg"
-                  src={followingUser.avatar_url}
-                  alt="profileimg"
-                />
-              </div>
-              <div className="introduction">{followingUser.bio}</div>
+        <div className="card-grid">
+          {followingList.map((followingUser) => (
+            <div
+              key={followingUser.id}
+              onClick={onClick}
+              className="card rounded-md w-96 h-60 bg-black"
+            >
+              {/* 카드 내용 */}
+              <div className="front">
+                {/* 사용자 정보 */}
+                <div className="profile">
+                  <img
+                    className="profileimg"
+                    src={followingUser.avatar_url}
+                    alt="profileimg"
+                  />
+                </div>
+                <div className="introduction">{followingUser.bio}</div>
 
-              <div className="followers_num">👨‍👦‍👦 {followingUser.followers}</div>
-              <div className="followers">followers</div>
-              <div className="following_num"> {followingUser.following}</div>
-              <div className="following">following</div>
-              <div className="organization">🏙 {followingUser.company}</div>
-              <div className="email">✉ {followingUser.email}</div>
-              <div className="location">🌍 {followingUser.location}</div>
-              <div className="name">{followingUser.name}</div>
-              <div className="git-id">@{followingUser.login}</div>
-              <div
-                className="image1"
-                src={orgs.avatar_url}
-                alt="profileimg"
-              ></div>
-              <div className="image2" src={orgs.avatar} alt="profileimg"></div>
-              <hr className="line" />
-              <div className="repos1">
-                <div className="typelevel-parser1">📌{repos[0].name}</div>
-                <div className="stars1">⭐{repos[0].stargazers_count}</div>
-                <div className="TypeScript1">🔵{repos[0].language}</div>
-                <div className="text1">{repos[0].descriptions}</div>
-              </div>
-              <div className="repos2">
-                <div className="typelevel-parser2">📌{repos[1].name}</div>
-                <div className="stars2">⭐{repos[1].stargazers_count}</div>
-                <div className="TypeScript2">🔵{repos[1].language}</div>
-                <div className="text2">{repos[1].descriptions}</div>
-              </div>
-              {/* 추가적인 정보 표시 */}
-              {/* ... */}
-            </div>
-            <div className="back">
-              <div className="flex flex-row items-center justify-center h-full">
-                <div className="flex-shrink-0">
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=tokyonight`}
-                    className="h-60"
-                  />
+                <div className="followers_num">
+                  👨‍👦‍👦 {followingUser.followers}
                 </div>
-                <div className="flex-shrink-0">
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&layout=compact&theme=tokyonight`}
-                    className="h-60"
-                  />
+                <div className="followers">followers</div>
+                <div className="following_num"> {followingUser.following}</div>
+                <div className="following">following</div>
+                <div className="organization">🏙 {followingUser.company}</div>
+                <div className="email">✉ {followingUser.email}</div>
+                <div className="location">🌍 {followingUser.location}</div>
+                <div className="name">{followingUser.name}</div>
+                <div className="git-id">@{followingUser.login}</div>
+                <div
+                  className="image1"
+                  src={orgs.avatar_url}
+                  alt="profileimg"
+                ></div>
+                <div
+                  className="image2"
+                  src={orgs.avatar}
+                  alt="profileimg"
+                ></div>
+                <hr className="line" />
+                <div className="repos1">
+                  <div className="typelevel-parser1">📌{repos[0].name}</div>
+                  <div className="stars1">⭐{repos[0].stargazers_count}</div>
+                  <div className="TypeScript1">🔵{repos[0].language}</div>
+                  <div className="text1">{repos[0].descriptions}</div>
                 </div>
+                <div className="repos2">
+                  <div className="typelevel-parser2">📌{repos[1].name}</div>
+                  <div className="stars2">⭐{repos[1].stargazers_count}</div>
+                  <div className="TypeScript2">🔵{repos[1].language}</div>
+                  <div className="text2">{repos[1].descriptions}</div>
+                </div>
+                {/* 추가적인 정보 표시 */}
+                {/* ... */}
               </div>
-              {/* 카드의 뒷면 내용 */}
-              {/* ... */}
+              <div className="back">
+                <div className="flex flex-row items-center justify-center h-full">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=tokyonight`}
+                      className="h-60"
+                    />
+                  </div>
+                  <div className="flex-shrink-0">
+                    <img
+                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&layout=compact&theme=tokyonight`}
+                      className="h-60"
+                    />
+                  </div>
+                </div>
+                {/* 카드의 뒷면 내용 */}
+                {/* ... */}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <style jsx="jsx">
         {`
+          .content {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+          }
+
+          .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: center;
+            grid-gap: 80px;
+          }
           .card {
             transition: transform 1s;
             transform-style: preserve-3d;
