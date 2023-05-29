@@ -3,9 +3,9 @@ import Footer from "/components/footer";
 import React, { useState, useRef, useEffect } from "react";
 import { useSession, getSession } from "next-auth/react";
 
-const fetchGitHubUser = async (accessToken) => {
+const fetchGitHubFollowUser = async (accessToken, username) => {
   try {
-    const response = await fetch("https://api.github.com/user", {
+    const response = await fetch(`https://api.github.com/users/${username}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -13,9 +13,9 @@ const fetchGitHubUser = async (accessToken) => {
 
     if (response.ok) {
       const data = await response.json();
-      return data.login;
+      return data;
     } else {
-      throw new Error("Failed to fetch GitHub user data");
+      throw new Error(`Failed to fetch GitHub user data: ${response.status}`);
     }
   } catch (error) {
     console.error("Failed to fetch GitHub user data:", error);
@@ -27,16 +27,17 @@ export default function Following_Card({
   repos,
   orgs,
   followers,
+  followingUsers,
 }) {
-  const [followingList, setFollowingList] = useState(followers); // 팔로잉하는 사람들의 정보를 담는 상태
+  const [followingList, setFollowingList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const session = await getSession();
       if (session?.accessToken) {
         const updatedFollowingList = await Promise.all(
-          followingList.map(async (followingUser) => {
-            const userData = await fetchGitHubUser(
+          followingUsers.map(async (followingUser) => {
+            const userData = await fetchGitHubFollowUser(
               session.accessToken,
               followingUser.login
             );
@@ -62,6 +63,7 @@ export default function Following_Card({
       element.style.transform = "rotateY(180deg)";
     }
   }
+
   return (
     <>
       <Header />
@@ -85,9 +87,9 @@ export default function Following_Card({
               </div>
               <div className="introduction">{followingUser.bio}</div>
 
-              <div className="followers_num">👨‍👦‍👦{followingUser.followers}</div>
+              <div className="followers_num">👨‍👦‍👦 {followingUser.followers}</div>
               <div className="followers">followers</div>
-              <div className="following_num">{followingUser.following}</div>
+              <div className="following_num"> {followingUser.following}</div>
               <div className="following">following</div>
               <div className="organization">🏙 {followingUser.company}</div>
               <div className="email">✉ {followingUser.email}</div>
@@ -424,20 +426,41 @@ export default function Following_Card({
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
   if (session?.accessToken) {
-    const user = await fetchGitHubUser(session.accessToken);
+    const user = session.user.name;
     const response1 = await fetch(`https://api.github.com/users/${user}`);
     const response2 = await fetch(`https://api.github.com/users/${user}/repos`);
     const response3 = await fetch(`https://api.github.com/users/${user}/orgs`);
     const response4 = await fetch(
       `https://api.github.com/users/${user}/followers`
     );
+    const response5 = await fetch(
+      `https://api.github.com/users/${user}/following`
+    );
 
     const user_profile_info = await response1.json();
     const repos = await response2.json();
     const orgs = await response3.json();
     const followers = await response4.json();
+    const following = await response5.json();
+
+    // Fetch following users
+
+    // Ensure `following` is an array
+    const followingArray = Array.isArray(following) ? following : [];
+
+    // Fetch information of following users
+    const followingUsers = [];
+    for (const followingUser of followingArray) {
+      const response = await fetch(
+        `https://api.github.com/users/${followingUser.login}`
+      );
+
+      const followingUserInfo = await response.json();
+      followingUsers.push(followingUserInfo);
+    }
+
     return {
-      props: { user_profile_info, repos, orgs, followers },
+      props: { user_profile_info, repos, orgs, followers, followingUsers },
     };
   }
   return {

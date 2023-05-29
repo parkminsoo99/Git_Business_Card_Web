@@ -477,6 +477,7 @@ export async function getServerSideProps(context) {
     const response3 = await fetch(`https://api.github.com/users/${user}/orgs`);
     const user_profile_info = await response1.json();
     const repos = await response2.json();
+
     const orgs = await response3.json();
     return {
       props: { user_profile_info, repos, orgs },
