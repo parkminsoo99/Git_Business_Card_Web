@@ -90,16 +90,41 @@ function MyCard({ user_profile_info, repos, orgs }) {
 
                 <div className="name">{user_profile_info.name}</div>
                 <div className="git-id">@{user_profile_info.login}</div>
-                <div
-                  className="image1"
-                  src={orgs.avatar_url}
-                  alt="profileimg"
-                ></div>
-                <div
-                  className="image2"
-                  src={orgs.avatar}
-                  alt="profileimg"
-                ></div>
+                {orgs[0] && (
+                  <div
+                    className="image1"
+                    src={orgs[0].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {orgs[1] && (
+                  <div
+                    className="image2"
+                    src={orgs[1].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {orgs[2] && (
+                  <div
+                    className="image2"
+                    src={orgs[1].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {orgs[3] && (
+                  <div
+                    className="image2"
+                    src={orgs[1].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {orgs[4] && (
+                  <div
+                    className="image2"
+                    src={orgs[1].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
                 <hr className="line" />
                 <div className="repos1">
                   <div className="typelevel-parser1">📌{repos[0].name}</div>
@@ -479,6 +504,7 @@ export async function getServerSideProps(context) {
     const repos = await response2.json();
 
     const orgs = await response3.json();
+
     return {
       props: { user_profile_info, repos, orgs },
     };

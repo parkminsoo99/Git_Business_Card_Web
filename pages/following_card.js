@@ -23,11 +23,9 @@ const fetchGitHubFollowUser = async (accessToken, username) => {
 };
 
 export default function Following_Card({
-  user_profile_info,
-  repos,
-  orgs,
-  followers,
   followingUsers,
+  followingUserOrgs,
+  followingUserRepos,
 }) {
   const [followingList, setFollowingList] = useState([]);
 
@@ -70,7 +68,7 @@ export default function Following_Card({
       <div className="content">
         {/* 동적으로 카드를 생성하는 부분 */}
         <div className="card-grid">
-          {followingList.map((followingUser) => (
+          {followingList.map((followingUser, index) => (
             <div
               key={followingUser.id}
               onClick={onClick}
@@ -99,28 +97,69 @@ export default function Following_Card({
                 <div className="location">🌍 {followingUser.location}</div>
                 <div className="name">{followingUser.name}</div>
                 <div className="git-id">@{followingUser.login}</div>
-                <div
-                  className="image1"
-                  src={orgs.avatar_url}
-                  alt="profileimg"
-                ></div>
-                <div
-                  className="image2"
-                  src={orgs.avatar}
-                  alt="profileimg"
-                ></div>
+                {followingUserOrgs[0] && (
+                  <div
+                    className="image2"
+                    src={followingUserOrgs[0].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {followingUserOrgs[1] && (
+                  <div
+                    className="image2"
+                    src={followingUserOrgs[1].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {followingUserOrgs[2] && (
+                  <div
+                    className="image2"
+                    src={followingUserOrgs[2].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {followingUserOrgs[3] && (
+                  <div
+                    className="image2"
+                    src={followingUserOrgs[3].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
+                {followingUserOrgs[4] && (
+                  <div
+                    className="image2"
+                    src={followingUserOrgs[4].avatar_url}
+                    alt="profileimg"
+                  ></div>
+                )}
                 <hr className="line" />
                 <div className="repos1">
-                  <div className="typelevel-parser1">📌{repos[0].name}</div>
-                  <div className="stars1">⭐{repos[0].stargazers_count}</div>
-                  <div className="TypeScript1">🔵{repos[0].language}</div>
-                  <div className="text1">{repos[0].descriptions}</div>
+                  <div className="typelevel-parser1">
+                    📌{followingUserRepos[index][0].name}
+                  </div>
+                  <div className="stars1">
+                    ⭐{followingUserRepos[index][0].stargazers_count}
+                  </div>
+                  <div className="TypeScript1">
+                    🔵{followingUserRepos[index][0].language}
+                  </div>
+                  <div className="text1">
+                    {followingUserRepos[index][0].descriptions}
+                  </div>
                 </div>
                 <div className="repos2">
-                  <div className="typelevel-parser2">📌{repos[1].name}</div>
-                  <div className="stars2">⭐{repos[1].stargazers_count}</div>
-                  <div className="TypeScript2">🔵{repos[1].language}</div>
-                  <div className="text2">{repos[1].descriptions}</div>
+                  <div className="typelevel-parser2">
+                    📌{followingUserRepos[index][1].name}
+                  </div>
+                  <div className="stars2">
+                    ⭐{followingUserRepos[index][1].stargazers_count}
+                  </div>
+                  <div className="TypeScript2">
+                    🔵{followingUserRepos[index][1].language}
+                  </div>
+                  <div className="text2">
+                    {followingUserRepos[index][1].descriptions}
+                  </div>
                 </div>
                 {/* 추가적인 정보 표시 */}
                 {/* ... */}
@@ -152,15 +191,14 @@ export default function Following_Card({
           .content {
             display: flex;
             justify-content: center;
-            margin: 20px;
           }
 
           .card-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            justify-content: center;
             grid-gap: 80px;
+            grid-template-columns: repeat(3, 1fr);
           }
+
           .card {
             transition: transform 1s;
             transform-style: preserve-3d;
@@ -421,10 +459,6 @@ export default function Following_Card({
       </style>
       <Footer />
       <style jsx>{`
-        @import "tailwindcss/base";
-        @import "tailwindcss/components";
-        @import "tailwindcss/utilities";
-
         @media (max-width: 768px) {
           /* 너비가 768px 이하일 때 */
           .content :global(.card) {
@@ -447,20 +481,10 @@ export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
   if (session?.accessToken) {
     const user = session.user.name;
-    const response1 = await fetch(`https://api.github.com/users/${user}`);
-    const response2 = await fetch(`https://api.github.com/users/${user}/repos`);
-    const response3 = await fetch(`https://api.github.com/users/${user}/orgs`);
-    const response4 = await fetch(
-      `https://api.github.com/users/${user}/followers`
-    );
     const response5 = await fetch(
       `https://api.github.com/users/${user}/following`
     );
 
-    const user_profile_info = await response1.json();
-    const repos = await response2.json();
-    const orgs = await response3.json();
-    const followers = await response4.json();
     const following = await response5.json();
 
     // Fetch following users
@@ -470,17 +494,40 @@ export async function getServerSideProps(context) {
 
     // Fetch information of following users
     const followingUsers = [];
+    const followingUserOrgs = [];
+    const followingUserRepos = [];
     for (const followingUser of followingArray) {
       const response = await fetch(
         `https://api.github.com/users/${followingUser.login}`
       );
 
       const followingUserInfo = await response.json();
-      followingUsers.push(followingUserInfo);
+      if (!followingUsers.some((user) => user.id === followingUserInfo.id)) {
+        followingUsers.push(followingUserInfo);
+      }
+
+      const response1 = await fetch(
+        `https://api.github.com/users/${followingUser.login}/orgs`
+      );
+
+      const response2 = await fetch(
+        `https://api.github.com/users/${followingUser.login}/repos`
+      );
+
+      const followingUserOrgInfo = await response1.json();
+      const followingUserReposInfo = await response2.json();
+      followingUserOrgs.push(followingUserOrgInfo);
+      followingUserRepos.push(followingUserReposInfo);
+
+      console.log(followingUserOrgs);
     }
 
     return {
-      props: { user_profile_info, repos, orgs, followers, followingUsers },
+      props: {
+        followingUsers,
+        followingUserOrgs,
+        followingUserRepos,
+      },
     };
   }
   return {
