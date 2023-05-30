@@ -43,7 +43,7 @@ export default function Feature() {
                     </div>
                 </div>
             </div>
-            <Link href={`/mycard/${session.user.name}`}>
+            <Link href={`/mycard/${session.user.login}`}>
                 <button className="flex text-center items-center mx-auto mt-28 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">명함 만들러가기</button>
             </Link>
             </div> 

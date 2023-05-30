@@ -7,16 +7,19 @@ import UserFollowers from './userfollowers';
 import Image from 'next/image';
 
 const fetchGitHubUser = async (accessToken) => { //access token 기반으로 username불러오기
+  const { username } = router.query;
+
   try {
     const response = await fetch('https://api.github.com/user', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-      },
+      }, 
     });
 
     if (response.ok) {
       const data = await response.json();
       const username = data.login;
+      console.log(username);
       return username;
     } else {
       throw new Error('Failed to fetch GitHub user data');
@@ -29,8 +32,7 @@ const fetchGitHubUser = async (accessToken) => { //access token 기반으로 use
 
 const UserPage = ({ user }) => {
   const router = useRouter();
-
-  //console.log('GitHub Username:', user.login);
+  
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -50,7 +52,7 @@ const UserPage = ({ user }) => {
       <div onClick={onClick} className="card rounded-md w-96 h-60 bg-black">
         <div className="front">
           <div className="profile">
-            <img class = "profileimg" src={user.avatar_url} alt="profileimg"></img>
+            <img className = "profileimg" src={user.avatar_url} alt="profileimg"></img>
           </div>
           <div className="introduction">{user.bio}</div>
 
