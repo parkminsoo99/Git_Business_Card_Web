@@ -16,7 +16,6 @@ export default function LogIn() {
       router.push('../../mycard'); // Redirect to the main page after logging in
     }
   }, [status]);
-
     return (
       
         <>
@@ -46,3 +45,4 @@ export default function LogIn() {
     </>
     )
 }
+
