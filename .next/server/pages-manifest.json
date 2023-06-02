@@ -1,5 +1,16 @@
 {
-  "/_app": "pages/_app.js",
+  "/URL_temp": "pages/URL_temp.html",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/api/hello": "pages/api/hello.js",
+  "/auth/login": "pages/auth/login.html",
+  "/hello": "pages/hello.html",
+  "/": "pages/index.html",
+  "/mycard/userfollowers": "pages/mycard/userfollowers.html",
+  "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js"
+  "/_app": "pages/_app.js",
+  "/mycard/[username]": "pages/mycard/[username].js",
+  "/following_card": "pages/following_card.js",
+  "/mycard": "pages/mycard.js",
+  "/404": "pages/404.html"
 }
