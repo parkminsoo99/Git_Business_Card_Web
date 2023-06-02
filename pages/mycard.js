@@ -67,7 +67,7 @@ function MyCard({user_profile_info, repos, orgs}) {
             <div onClick={onClick} className="card rounded-md w-96 h-60 bg-black">
                 <div className="front">
                     <div className="profile">
-                        <img class="profileimg" src={user_profile_info.avatar_url} alt="profileimg"></img>
+                        <img className="profileimg" src={user_profile_info.avatar_url} alt="profileimg"></img>
                     </div>
                     <div className="introduction">{user_profile_info.bio}</div>
 
@@ -478,7 +478,6 @@ export async function getServerSideProps(context) {
         const response3 = await fetch(`https://api.github.com/users/${user}/orgs`);
         const user_profile_info = await response1.json();
         const repos = await response2.json();
-
         const orgs = await response3.json();
 
         return {

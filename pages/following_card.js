@@ -1,5 +1,7 @@
-import Header from '/components/header'
-import Footer from '/components/footer'
+import Header from "/components/header";
+import Footer from "/components/footer";
+import React, { useState, useRef, useEffect } from "react";
+import { useSession, getSession } from "next-auth/react";
 
 const fetchGitHubFollowUser = async (accessToken, username) => {
   try {
@@ -475,7 +477,7 @@ export default function Following_Card({
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const session = await getSession({ req: context.req });
   if (session?.accessToken) {
     const user = session.user.name;
