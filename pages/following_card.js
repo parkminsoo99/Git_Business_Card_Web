@@ -1,7 +1,7 @@
 import Header from "/components/header";
 import Footer from "/components/footer";
-import React, { useState, useRef, useEffect } from "react";
-import { useSession, getSession } from "next-auth/react";
+import React, { useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
 
 const fetchGitHubFollowUser = async (accessToken, username) => {
   try {
@@ -165,17 +165,17 @@ export default function Following_Card({
                 {/* ... */}
               </div>
               <div className="back">
-                <div className="flex flex-row items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-center h-full">
                   <div className="flex-shrink-0">
                     <img
-                      src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=tokyonight`}
-                      className="h-60"
+                      src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=`}
+                      className="h-40"
                     />
                   </div>
                   <div className="flex-shrink-0">
                     <img
-                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&layout=compact&theme=tokyonight`}
-                      className="h-60"
+                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&hide_progress=true`}
+                      className="h-20"
                     />
                   </div>
                 </div>

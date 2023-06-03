@@ -140,17 +140,17 @@ function MyCard({ user_profile_info, repos, orgs }) {
                 </div>
               </div>
               <div className="back">
-                <div className="flex flex-row items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-center h-full">
                   <div className="flex-shrink-0">
                     <img
-                      src={`https://github-readme-stats.vercel.app/api?username=${user_profile_info.login}&show_icons=true&theme=tokyonight`}
-                      className="h-60"
+                      src={`https://github-readme-stats.vercel.app/api?username=${user_profile_info.login}&show_icons=true&theme=`}
+                      className="h-40"
                     />
                   </div>
-                  <div className="flex-shrink-0">
+                  <div className="flex justify-start">
                     <img
-                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${user_profile_info.login}&layout=compact&theme=tokyonight`}
-                      className="h-60"
+                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${user_profile_info.login}&hide_progress=true`}
+                      className="h-20"
                     />
                   </div>
                 </div>
