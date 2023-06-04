@@ -3,6 +3,24 @@ import Footer from "/components/footer";
 import React, { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
+const fetchGitHubUser = async (accessToken) => {
+  try {
+    const response = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.login;
+    } else {
+      throw new Error("Failed to fetch GitHub user data");
+    }
+  } catch (error) {
+    console.error("Failed to fetch GitHub user data:", error);
+  }
+};
 const fetchGitHubFollowUser = async (accessToken, username) => {
   try {
     const response = await fetch(`https://api.github.com/users/${username}`, {
@@ -72,7 +90,7 @@ export default function Following_Card({
             <div
               key={followingUser.id}
               onClick={onClick}
-              className="card rounded-md w-96 h-60 bg-black"
+              className="card rounded-md w-96 h-60 border-2 border-black"
             >
               {/* 카드 내용 */}
               <div className="front">
@@ -99,7 +117,7 @@ export default function Following_Card({
                 <div className="git-id">@{followingUser.login}</div>
                 {followingUserOrgs[0] && (
                   <div
-                    className="image2"
+                    className="image1"
                     src={followingUserOrgs[0].avatar_url}
                     alt="profileimg"
                   ></div>
@@ -113,21 +131,21 @@ export default function Following_Card({
                 )}
                 {followingUserOrgs[2] && (
                   <div
-                    className="image2"
+                    className="image3"
                     src={followingUserOrgs[2].avatar_url}
                     alt="profileimg"
                   ></div>
                 )}
                 {followingUserOrgs[3] && (
                   <div
-                    className="image2"
+                    className="image4"
                     src={followingUserOrgs[3].avatar_url}
                     alt="profileimg"
                   ></div>
                 )}
                 {followingUserOrgs[4] && (
                   <div
-                    className="image2"
+                    className="image5"
                     src={followingUserOrgs[4].avatar_url}
                     alt="profileimg"
                   ></div>
@@ -166,13 +184,13 @@ export default function Following_Card({
               </div>
               <div className="back">
                 <div className="flex flex-col items-center justify-center h-full">
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 mt-0 mb-0 p-0">
                     <img
                       src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=`}
                       className="h-40"
                     />
                   </div>
-                  <div className="flex-shrink-0">
+                  <div className="flex mt-[-3px] mb-0 p-0">
                     <img
                       src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&hide_progress=true`}
                       className="h-20"
@@ -210,7 +228,7 @@ export default function Following_Card({
           .back,
           .front {
             border-radius: 7px;
-            color: white;
+            color: black;
             position: absolute;
             display: flex;
             justify-content: center;
@@ -233,7 +251,7 @@ export default function Following_Card({
             border-radius: 50%;
             overflow: hidden;
             background-position: center center;
-            border: 0.5px solid rgba(61, 25, 25, 1);
+            border: 1.5px solid #000000;
           }
 
           .introduction {
@@ -267,7 +285,7 @@ export default function Following_Card({
           }
 
           .following_num {
-            left: 90px;
+            left: 95px;
             top: 155px;
             position: absolute;
             font-size: 10px;
@@ -360,11 +378,41 @@ export default function Following_Card({
             left: 190px;
           }
 
+          .image3 {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 7px;
+            opacity: 0.6;
+            top: 80px;
+            left: 190px;
+          }
+
+          .image4 {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 7px;
+            opacity: 0.6;
+            top: 80px;
+            left: 190px;
+          }
+
+          .image5 {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 7px;
+            opacity: 0.6;
+            top: 80px;
+            left: 190px;
+          }
+
           .line {
             position: absolute;
             width: 220px;
-            color: #808080;
-            left: 160px;
+            border: 1px solid #808080;
+            left: 158px;
             top: 110px;
           }
 
@@ -375,7 +423,7 @@ export default function Following_Card({
             border-width: 1px;
             width: 220px;
             height: 50px;
-            left: 160px;
+            left: 158px;
             top: 120px;
           }
 
@@ -419,7 +467,7 @@ export default function Following_Card({
             border-width: 1px;
             width: 220px;
             height: 50px;
-            left: 160px;
+            left: 158px;
             top: 180px;
           }
 
@@ -480,7 +528,7 @@ export default function Following_Card({
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
   if (session?.accessToken) {
-    const user = session.user.name;
+    const user = await fetchGitHubUser(session.accessToken);
     const response5 = await fetch(
       `https://api.github.com/users/${user}/following`
     );
@@ -518,8 +566,6 @@ export async function getServerSideProps(context) {
       const followingUserReposInfo = await response2.json();
       followingUserOrgs.push(followingUserOrgInfo);
       followingUserRepos.push(followingUserReposInfo);
-
-      console.log(followingUserOrgs);
     }
 
     return {

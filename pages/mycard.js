@@ -62,7 +62,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
           <div className="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
             <div
               onClick={onClick}
-              className="card rounded-md w-96 h-60 bg-black"
+              className="card rounded-md w-96 h-60 border-2 border-black"
             >
               <div className="front">
                 <div className="profile">
@@ -75,7 +75,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
                 <div className="introduction">{user_profile_info.bio}</div>
 
                 <div className="followers_num">
-                  👨‍👦‍👦{user_profile_info.followers}
+                  👨‍👦‍👦 {user_profile_info.followers}
                 </div>
                 <div className="followers">followers</div>
                 <div className="following_num">
@@ -106,22 +106,22 @@ function MyCard({ user_profile_info, repos, orgs }) {
                 )}
                 {orgs[2] && (
                   <div
-                    className="image2"
-                    src={orgs[1].avatar_url}
+                    className="image3"
+                    src={orgs[2].avatar_url}
                     alt="profileimg"
                   ></div>
                 )}
                 {orgs[3] && (
                   <div
-                    className="image2"
-                    src={orgs[1].avatar_url}
+                    className="image4"
+                    src={orgs[3].avatar_url}
                     alt="profileimg"
                   ></div>
                 )}
                 {orgs[4] && (
                   <div
-                    className="image2"
-                    src={orgs[1].avatar_url}
+                    className="image5"
+                    src={orgs[4].avatar_url}
                     alt="profileimg"
                   ></div>
                 )}
@@ -141,13 +141,13 @@ function MyCard({ user_profile_info, repos, orgs }) {
               </div>
               <div className="back">
                 <div className="flex flex-col items-center justify-center h-full">
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 mt-0 mb-0 p-0">
                     <img
                       src={`https://github-readme-stats.vercel.app/api?username=${user_profile_info.login}&show_icons=true&theme=`}
                       className="h-40"
                     />
                   </div>
-                  <div className="flex justify-start">
+                  <div className="flex mt-[-3px] mb-0 p-0">
                     <img
                       src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${user_profile_info.login}&hide_progress=true`}
                       className="h-20"
@@ -169,7 +169,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
                 .back,
                 .front {
                   border-radius: 7px;
-                  color: white;
+                  color: black;
                   position: absolute;
                   display: flex;
                   justify-content: center;
@@ -192,7 +192,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
                   border-radius: 50%;
                   overflow: hidden;
                   background-position: center center;
-                  border: 0.5px solid rgba(61, 25, 25, 1);
+                  border: 1.5px solid #000000;
                 }
 
                 .introduction {
@@ -226,7 +226,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
                 }
 
                 .following_num {
-                  left: 90px;
+                  left: 95px;
                   top: 155px;
                   position: absolute;
                   font-size: 10px;
@@ -319,11 +319,41 @@ function MyCard({ user_profile_info, repos, orgs }) {
                   left: 190px;
                 }
 
+                .image3 {
+                  position: absolute;
+                  width: 25px;
+                  height: 25px;
+                  border-radius: 7px;
+                  opacity: 0.6;
+                  top: 80px;
+                  left: 190px;
+                }
+
+                .image4 {
+                  position: absolute;
+                  width: 25px;
+                  height: 25px;
+                  border-radius: 7px;
+                  opacity: 0.6;
+                  top: 80px;
+                  left: 190px;
+                }
+
+                .image5 {
+                  position: absolute;
+                  width: 25px;
+                  height: 25px;
+                  border-radius: 7px;
+                  opacity: 0.6;
+                  top: 80px;
+                  left: 190px;
+                }
+
                 .line {
                   position: absolute;
                   width: 220px;
-                  color: #808080;
-                  left: 160px;
+                  border: 1px solid #808080;
+                  left: 158px;
                   top: 110px;
                 }
 
@@ -334,7 +364,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
                   border-width: 1px;
                   width: 220px;
                   height: 50px;
-                  left: 160px;
+                  left: 158px;
                   top: 120px;
                 }
 
@@ -378,7 +408,7 @@ function MyCard({ user_profile_info, repos, orgs }) {
                   border-width: 1px;
                   width: 220px;
                   height: 50px;
-                  left: 160px;
+                  left: 158px;
                   top: 180px;
                 }
 
