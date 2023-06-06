@@ -1,44 +1,9 @@
-import fetch from 'isomorphic-unfetch';
 import { useRouter } from 'next/router';
+import fetch from 'isomorphic-unfetch';
 
-const fetchGitHubUser = async (accessToken) => { //access token 기반으로 username불러오기
-  try {
-    const response = await fetch('https://api.github.com/user', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const username = data.login;
-      return username;
-    } else {
-      throw new Error('Failed to fetch GitHub user data');
-    }
-  } catch (error) {
-    console.error('Failed to fetch GitHub user data:', error);
-    // 오류 처리 로직
-  }
-};
-// export async function getStaticPaths() {
-//   // 여기에서 필요한 로직을 추가하여 사용자 목록을 가져올 수 있습니다.
-//   // 예시로 두 명의 사용자를 가정합니다.
-//   const users = ['user1', 'user2'];
-
-//   const paths = users.map((username) => ({
-//     params: { username },
-//   }));
-//   return {
-//     paths,
-//     fallback: true, // fallback을 true로 설정하여 정적으로 미리 생성되지 않은 페이지도 렌더링될 수 있도록 합니다.
-//   };
-// }
 export async function getStaticPaths() {
     return {paths: [], fallback: 'blocking'};
 };
-
-
 
 export async function getStaticProps({params}) {
   const name = params.username;
@@ -77,7 +42,7 @@ const UserPage = ({  user_profile_info, repos, orgs }) => {
   return (
       <> {
       } {
-      } < section className = "text-gray-600 body-font mb-24" > <div
+      } <section className = "text-gray-600 body-font mb-24" > <div
           className="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
           <div onClick={onClick} className="card rounded-md w-96 h-60 bg-black">
               <div className="front">

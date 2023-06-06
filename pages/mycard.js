@@ -1,8 +1,11 @@
+
 import Header from "/components/header";
 import Footer from "/components/footer";
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import Modal from "/components/Modal";
 import {useSession, getSession} from "next-auth/react";
+import fetch from 'isomorphic-unfetch';
+import html2canvas from 'html2canvas';
 
 const fetchGitHubUser = async (accessToken) => {
     try {
@@ -24,6 +27,39 @@ const fetchGitHubUser = async (accessToken) => {
 };
 
 function MyCard({user_profile_info, repos, orgs}) {
+    const [cardImage, setCardImage] = useState(null);
+    const cardRef = useRef(null);
+
+    // useEffect(() => {
+    //     // const captureCardImage = async () => {
+    //     //     if (cardRef.current) {
+    //     //         const canvas = await html2canvas(cardRef.current); 
+    //     //         const image = canvas.toDataURL("image/jpeg", 1.0);
+    //     //         console.log("이미지!!!",image);
+    //     //         setCardImage(image);
+    //     //     }
+    //     // };
+
+    //     // captureCardImage();
+    //     const captureCardAsImage = () => {
+    //         const cardElement = cardRef.current;
+    //         const canvas = document.createElement("canvas");
+    //         const context = canvas.getContext("2d");
+            
+    //         // 카드 요소의 크기를 캔버스에 설정
+    //         canvas.width = cardElement.offsetWidth;
+    //         canvas.height = cardElement.offsetHeight;
+            
+    //         // 카드 요소를 캔버스에 그림
+    //         context.drawCardElement(cardElement, 0, 0);
+            
+    //         // 캔버스를 이미지로 변환
+    //         const cardImage = new Image();
+    //         cardImage.src = canvas.toDataURL("image/png");
+    
+    //       };
+    //       captureCardAsImage();
+    // }, []);
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
 
@@ -65,7 +101,7 @@ function MyCard({user_profile_info, repos, orgs}) {
         } < section className = "text-gray-600 body-font mb-24" > <div
             className="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
             <div onClick={onClick} className="card rounded-md w-96 h-60 bg-black">
-                <div className="front">
+                <div ref={cardRef} className="front">
                     <div className="profile">
                         <img className="profileimg" src={user_profile_info.avatar_url} alt="profileimg"></img>
                     </div>
@@ -126,6 +162,9 @@ function MyCard({user_profile_info, repos, orgs}) {
                         <div className="text2">{repos[1].descriptions}</div>
                     </div>
                 </div>
+        
+            
+
                 <div className="back">
                     <div className="flex flex-row items-center justify-center h-full">
                         <div className="flex-shrink-0">
@@ -492,3 +531,4 @@ export async function getServerSideProps(context) {
 }
 
 export default MyCard;
+
