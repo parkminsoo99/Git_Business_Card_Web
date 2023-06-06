@@ -90,9 +90,8 @@ export default function Following_Card({
             <div
               key={followingUser.id}
               onClick={onClick}
-              className="card rounded-md w-96 h-60 border-2 border-black"
+              className="card rounded-md w-96 h-60 bg-black"
             >
-              {/* 카드 내용 */}
               <div className="front">
                 {/* 사용자 정보 */}
                 <div className="profile">
