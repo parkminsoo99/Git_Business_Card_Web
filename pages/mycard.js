@@ -1,11 +1,9 @@
-
 import Header from "/components/header";
 import Footer from "/components/footer";
 import React, {useState, useRef, useEffect} from "react";
 import Modal from "/components/Modal";
-import {useSession, getSession} from "next-auth/react";
+import {getSession} from "next-auth/react";
 import fetch from 'isomorphic-unfetch';
-import html2canvas from 'html2canvas';
 
 const fetchGitHubUser = async (accessToken) => {
     try {
@@ -27,39 +25,7 @@ const fetchGitHubUser = async (accessToken) => {
 };
 
 function MyCard({user_profile_info, repos, orgs}) {
-    const [cardImage, setCardImage] = useState(null);
     const cardRef = useRef(null);
-
-    // useEffect(() => {
-    //     // const captureCardImage = async () => {
-    //     //     if (cardRef.current) {
-    //     //         const canvas = await html2canvas(cardRef.current); 
-    //     //         const image = canvas.toDataURL("image/jpeg", 1.0);
-    //     //         console.log("이미지!!!",image);
-    //     //         setCardImage(image);
-    //     //     }
-    //     // };
-
-    //     // captureCardImage();
-    //     const captureCardAsImage = () => {
-    //         const cardElement = cardRef.current;
-    //         const canvas = document.createElement("canvas");
-    //         const context = canvas.getContext("2d");
-            
-    //         // 카드 요소의 크기를 캔버스에 설정
-    //         canvas.width = cardElement.offsetWidth;
-    //         canvas.height = cardElement.offsetHeight;
-            
-    //         // 카드 요소를 캔버스에 그림
-    //         context.drawCardElement(cardElement, 0, 0);
-            
-    //         // 캔버스를 이미지로 변환
-    //         const cardImage = new Image();
-    //         cardImage.src = canvas.toDataURL("image/png");
-    
-    //       };
-    //       captureCardAsImage();
-    // }, []);
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
 
@@ -82,7 +48,6 @@ function MyCard({user_profile_info, repos, orgs}) {
         }
     };
     const [showModal, setShowModal] = useState(false);
-    const {data: session, status} = useSession();
     function onClick(event) {
         const element = event.currentTarget;
         if (element.style.transform == "rotateY(180deg)") {
@@ -512,6 +477,7 @@ export async function getServerSideProps(context) {
             ?.accessToken
     ) {
         const user = await fetchGitHubUser(session.accessToken);
+        console.log("유저!!!!!",user);
         const response1 = await fetch(`https://api.github.com/users/${user}`);
         const response2 = await fetch(`https://api.github.com/users/${user}/repos`);
         const response3 = await fetch(`https://api.github.com/users/${user}/orgs`);
@@ -531,4 +497,3 @@ export async function getServerSideProps(context) {
 }
 
 export default MyCard;
-

@@ -9,15 +9,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 export default function LogIn() {
   const { data: session, status } = useSession();
   const router = useRouter();
-
   useEffect(() => {
+   
     if (status === 'authenticated') {
-      console.log(session.user.name);
-      router.push('../../mycard'); // Redirect to the main page after logging in
+      router.push('../..'); // Redirect to the main page after logging in
     }
   }, [status]);
     return (
-      
         <>
         <Header/>
         <section class="text-gray-600 body-font">

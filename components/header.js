@@ -50,7 +50,7 @@ export default function Header() {
                         <p className="mr-5 hover:text-gray-900">Home</p>
                     </Link>
                 </nav>        
-                <Link href="/auth/login">
+                <Link href="/login">
                     <p className="mr-5 hover:text-gray-900">Login</p>
                 </Link>
                 <button>

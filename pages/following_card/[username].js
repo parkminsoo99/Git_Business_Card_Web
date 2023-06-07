@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import fetch from 'isomorphic-unfetch';
-import '../../../styles/global.css';
+import '../../styles/global.css';
 
 const fetchGitHubFollowUser = async (accessToken, username) => {
   try {
@@ -27,7 +27,6 @@ export default function Following_Card({
   followingUserRepos,
 }) {
   const [followingList, setFollowingList] = useState([]);
-  console.log("function in following Users",followingUsers )
   
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +36,6 @@ export default function Following_Card({
               //session.accessToken,
               followingUser.login
             );
-            console.log("팔로윙유저",followingUser);
             return {
               ...followingUser,
               ...userData,
@@ -184,280 +182,7 @@ export default function Following_Card({
           ))}
         </div>
       </div>
-      {/* <style jsx="jsx">
-        {`
-          .content {
-            display: flex;
-            justify-content: center;
-          }
-
-          .card-grid {
-            display: grid;
-            grid-gap: 80px;
-            grid-template-columns: repeat(3, 1fr);
-          }
-
-          .card {
-            transition: transform 1s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-            transform: rotateY(0);
-            position: relative;
-          }
-
-          .back,
-          .front {
-            border-radius: 7px;
-            color: white;
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backface-visibility: hidden;
-          }
-
-          .back {
-            transform: rotateY(180deg);
-          }
-
-          .profile {
-            left: 35px;
-            top: 15px;
-            width: 90px;
-            height: 90px;
-            background: rgba(191, 255, 255, 0.800000011920929);
-            opacity: 1;
-            position: absolute;
-            border-radius: 50%;
-            overflow: hidden;
-            background-position: center center;
-            border: 0.5px solid rgba(61, 25, 25, 1);
-          }
-
-          .introduction {
-            width: 125px;
-            left: 20px;
-            top: 110px;
-            position: absolute;
-            font-size: 5px;
-            text-align: center;
-          }
-
-          .followers_num {
-            left: 10px;
-            top: 155px;
-            position: absolute;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-            display: inline-block;
-            white-space: nowrap;
-          }
-
-          .followers {
-            position: absolute;
-            top: 155px;
-            left: 45px;
-            font-size: 10px;
-            opacity: 0.5;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-          }
-
-          .following_num {
-            left: 90px;
-            top: 155px;
-            position: absolute;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-          }
-
-          .following {
-            position: absolute;
-            top: 155px;
-            left: 110px;
-            font-size: 10px;
-            opacity: 0.5;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-          }
-
-          .organization {
-            left: 13px;
-            top: 175px;
-            position: absolute;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-            display: inline-block;
-            white-space: nowrap;
-          }
-
-          .email {
-            left: 13px;
-            top: 195px;
-            position: absolute;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-            display: inline-block;
-            white-space: nowrap;
-          }
-
-          .location {
-            left: 11px;
-            top: 215px;
-            position: absolute;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-            font-weight: Regular;
-            display: inline-block;
-            white-space: nowrap;
-          }
-
-          .name {
-            left: 160px;
-            top: 20px;
-            position: absolute;
-            font-size: 25px;
-            font-family: NanumSquare Neo;
-            font-weight: Heavy;
-            display: inline-block;
-            white-space: nowrap;
-          }
-
-          .git-id {
-            left: 160px;
-            top: 50px;
-            position: absolute;
-            font-size: 17px;
-            opacity: 0.5;
-            font-family: NanumSquare Neo;
-            display: inline-block;
-            white-space: nowrap;
-          }
-
-          .image1 {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-radius: 7px;
-            opacity: 0.6;
-            top: 80px;
-            left: 160px;
-          }
-
-          .image2 {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-radius: 7px;
-            opacity: 0.6;
-            top: 80px;
-            left: 190px;
-          }
-
-          .line {
-            position: absolute;
-            width: 220px;
-            color: #808080;
-            left: 160px;
-            top: 110px;
-          }
-
-          .repos1 {
-            position: absolute;
-            border-radius: 7px;
-            border-color: gray;
-            border-width: 1px;
-            width: 220px;
-            height: 50px;
-            left: 160px;
-            top: 120px;
-          }
-
-          .typelevel-parser1 {
-            position: relative;
-            left: 10px;
-            font-size: 10px;
-            color: rgb(0, 153, 255);
-            font-family: NanumSquare Neo;
-            font-weight: Heavy;
-          }
-
-          .stars1 {
-            position: relative;
-            top: -13px;
-            left: 120px;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-          }
-
-          .TypeScript1 {
-            position: relative;
-            top: -28px;
-            left: 155px;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-          }
-
-          .text1 {
-            position: relative;
-            left: 5px;
-            top: -30px;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-          }
-
-          .repos2 {
-            position: absolute;
-            border-radius: 7px;
-            border-color: gray;
-            border-width: 1px;
-            width: 220px;
-            height: 50px;
-            left: 160px;
-            top: 180px;
-          }
-
-          .typelevel-parser2 {
-            position: relative;
-            left: 10px;
-            font-size: 10px;
-            color: rgb(0, 153, 255);
-            font-family: NanumSquare Neo;
-            font-weight: Heavy;
-          }
-
-          .stars2 {
-            position: relative;
-            top: -13px;
-            left: 120px;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-          }
-
-          .TypeScript2 {
-            position: relative;
-            top: -28px;
-            left: 155px;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-          }
-
-          .text2 {
-            position: relative;
-            left: 5px;
-            top: -30px;
-            font-size: 10px;
-            font-family: NanumSquare Neo;
-          }
-        `}
-      </style>
-      <style jsx>{`
-        
-      `}</style> */}
+      
     </>
   );
 }
@@ -467,14 +192,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
   const user = params.username;
-  console.log("유저!",user)
     const response5 = await fetch(
       `https://api.github.com/users/${user}/following`
     );
 
     const following = await response5.json();
-    console.log("팔로잉!!",following);
-
     // Fetch following users
 
     // Ensure `following` is an array
@@ -503,7 +225,6 @@ export async function getStaticProps({params}) {
       );
 
       const followingUserOrgInfo = await response1.json();
-      console.log("followinginfo!!!", followingUserOrgInfo);
       const followingUserReposInfo = await response2.json();
       followingUserOrgs.push(followingUserOrgInfo);
       followingUserRepos.push(followingUserReposInfo);

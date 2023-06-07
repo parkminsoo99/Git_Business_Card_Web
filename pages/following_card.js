@@ -5,20 +5,20 @@ import { getSession } from "next-auth/react";
 
 const fetchGitHubUser = async (accessToken) => {
   try {
-      const response = await fetch("https://api.github.com/user", {
-          headers: {
-              Authorization: `Bearer ${accessToken}`
-          }
-      });
+    const response = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-      if (response.ok) {
-          const data = await response.json();
-          return data.login;
-      } else {
-          throw new Error("Failed to fetch GitHub user data");
-      }
+    if (response.ok) {
+      const data = await response.json();
+      return data.login;
+    } else {
+      throw new Error("Failed to fetch GitHub user data");
+    }
   } catch (error) {
-      console.error("Failed to fetch GitHub user data:", error);
+    console.error("Failed to fetch GitHub user data:", error);
   }
 };
 const fetchGitHubFollowUser = async (accessToken, username) => {
@@ -182,17 +182,17 @@ export default function Following_Card({
                 {/* ... */}
               </div>
               <div className="back">
-                <div className="flex flex-col items-center justify-center h-full">
+                <div className="flex flex-row items-center justify-center h-full">
                   <div className="flex-shrink-0">
                     <img
-                      src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=`}
-                      className="h-40"
+                      src={`https://github-readme-stats.vercel.app/api?username=${followingUser.login}&show_icons=true&theme=tokyonight`}
+                      className="h-60"
                     />
                   </div>
                   <div className="flex-shrink-0">
                     <img
-                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&hide_progress=true`}
-                      className="h-20"
+                      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${followingUser.login}&layout=compact&theme=tokyonight`}
+                      className="h-60"
                     />
                   </div>
                 </div>
@@ -211,9 +211,9 @@ export default function Following_Card({
           }
 
           .card-grid {
-            display: grid;
-            grid-gap: 80px;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            gap: 80px;
+            flex-direction: column;
           }
 
           .card {
@@ -475,21 +475,6 @@ export default function Following_Card({
         `}
       </style>
       <Footer />
-      <style jsx>{`
-        @media (max-width: 768px) {
-          /* 너비가 768px 이하일 때 */
-          .content :global(.card) {
-            @apply w-1/2; /* 한 줄에 2개의 카드가 나오도록 설정 */
-          }
-        }
-
-        @media (max-width: 480px) {
-          /* 너비가 480px 이하일 때 */
-          .content :global(.card) {
-            @apply w-full; /* 한 줄에 1개의 카드가 나오도록 설정 */
-          }
-        }
-      `}</style>
     </>
   );
 }
@@ -509,7 +494,7 @@ export async function getServerSideProps(context) {
 
     // Ensure `following` is an array
     const followingArray = Array.isArray(following) ? following : [];
-    
+
     // Fetch information of following users
     const followingUsers = [];
     const followingUserOrgs = [];
@@ -537,7 +522,6 @@ export async function getServerSideProps(context) {
       const followingUserReposInfo = await response2.json();
       followingUserOrgs.push(followingUserOrgInfo);
       followingUserRepos.push(followingUserReposInfo);
-
     }
 
     return {
